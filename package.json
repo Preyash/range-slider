@@ -13,7 +13,9 @@
     "url": "git+https://github.com/Preyash/input-integer.git"
   },
   "keywords": [
-    "slider"
+    "shadow-dom",
+    "neumorphic",
+    "vanilla-js"
   ],
   "author": "preyash",
   "license": "MIT",

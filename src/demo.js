@@ -1,4 +1,4 @@
-const inputInteger = require('..')
+const inputInteger = require('shadow-neumorphic-input')
 
 const age = inputInteger(1, 140)
 const birthYear = inputInteger(1872, 2022)
