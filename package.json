@@ -26,5 +26,8 @@
   "devDependencies": {
     "browserify": "^17.0.0",
     "budo": "^11.7.0"
+  },
+  "dependencies": {
+    "shadow-neumorphic-input": "^0.0.2"
   }
 }

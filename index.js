@@ -1,8 +1,6 @@
 module.exports = inputInteger
 
 const d = document
-d.body.innerHTML = `<h1>Input integer</h1>`
-
 const sheet = new CSSStyleSheet
 const theme = get_theme()
 sheet.replaceSync(theme)
