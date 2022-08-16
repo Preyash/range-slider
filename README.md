@@ -2,10 +2,10 @@
 
 ## usage
 
-```js 
-const inputInteger = require('shadow-neumorphic-input')
+```js
+const inputInteger = require("shadow-neumorphic-input");
 
-const input = inputInteger(1, 140)
+const input = inputInteger(1, 140);
 
-document.body.append(input)
+document.body.append(input);
 ```
