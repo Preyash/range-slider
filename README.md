@@ -1,4 +1,4 @@
-# input-integer
+# range-slider
 
 ## usage
 
