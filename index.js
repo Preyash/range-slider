@@ -1,43 +1,36 @@
-module.exports = inputInteger
+// module.exports = Component
 
 const d = document
 const sheet = new CSSStyleSheet
 const theme = get_theme()
 sheet.replaceSync(theme)
 
-function inputInteger(min, max) {
+function Component() {
     const el = d.createElement('div')
+    el.classList.add('container')
     const shadow = el.attachShadow({ mode: 'closed' })
     const input = d.createElement('input')
-    input.type = 'number'
-    input.min = min
-    input.max = max
-    input.onkeyup = (e) => keyupHandle(e, input, min, max)
-    input.onmouseleave = (e) => mouseleave_or_blur_handle(e, input, min, max)
-    input.onblur = (e) => mouseleave_or_blur_handle(e, input, min)
+    input.type = 'range'
+    // input.min = min
+    // input.max = max
+    // input.onkeyup = (e) => keyupHandle(e, input, min, max)
+    // input.onmouseleave = (e) => mouseleave_or_blur_handle(e, input, min, max)
+    // input.onblur = (e) => mouseleave_or_blur_handle(e, input, min)
     shadow.append(input)
     shadow.adoptedStyleSheets = [sheet]
+    document.body.append(el)
     return el
 }
 
+Component()
 
 function get_theme() {
     return `
-        input {
-            height: 100%;
-            width: 200px;
-            padding: 20px;
-            font-size: 22px;
-            outline: none;
-            border: none;
-            color: #595959;
-            background: #dde1e7;
-            border-radius: 25px;
-            box-shadow: inset 2px 2px 5px #babecc,
-                        inset -5px -5px 10px #ffffff73;
+        :host(.container) {
+
         }
-        input:focus {
-            outline: 2px solid #b8b8b8;
+        input {
+            width: 100%;
         }
     `
 }

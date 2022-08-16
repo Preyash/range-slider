@@ -3,9 +3,9 @@
 ## usage
 
 ```js
-const inputInteger = require("shadow-neumorphic-input");
+const inputInteger = require("");
 
-const input = inputInteger(1, 140);
+const input = rangeSlider();
 
 document.body.append(input);
 ```

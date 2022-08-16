@@ -1,7 +1,7 @@
-const inputInteger = require('shadow-neumorphic-input')
+const rangeSlider = require('..')
 
-const age = inputInteger(1, 140)
-const birthYear = inputInteger(1872, 2022)
+const age = rangeSlider(1, 140)
+const birthYear = rangeSlider(1872, 2022)
 
 const section = document.createElement('div')
 section.innerHTML = `
