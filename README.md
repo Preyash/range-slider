@@ -3,9 +3,9 @@
 ## usage
 
 ```js
-const inputInteger = require("");
+const rangeSlider = require("shadow-range-slider");
 
-const input = rangeSlider();
+const range = rangeSlider(0, 10);
 
-document.body.append(input);
+document.body.append(range);
 ```

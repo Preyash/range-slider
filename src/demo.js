@@ -1,4 +1,4 @@
-const rangeSlider = require('..')
+const rangeSlider = require('shadow-range-slider')
 
 const range = rangeSlider(0, 10)
 
