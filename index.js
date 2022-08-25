@@ -39,7 +39,6 @@ function Component(min, max) {
 }
 
 
-
 function get_theme() {
     return `
         *, *:before, *:after { box-sizing: inherit; }

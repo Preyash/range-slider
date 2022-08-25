@@ -1,79 +1,138 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-module.exports = inputInteger
+module.exports = Component
 
 const d = document
-d.body.innerHTML = `<h1>Input integer</h1>`
-
 const sheet = new CSSStyleSheet
 const theme = get_theme()
 sheet.replaceSync(theme)
 
-function inputInteger(min, max) {
+function Component(min, max) {
     const el = d.createElement('div')
+    el.classList.add('container')
     const shadow = el.attachShadow({ mode: 'closed' })
     const input = d.createElement('input')
-    input.type = 'number'
+    input.type = 'range'
     input.min = min
     input.max = max
-    input.onkeyup = (e) => keyupHandle(e, input, min, max)
-    input.onmouseleave = (e) => mouseleave_or_blur_handle(e, input, min, max)
-    input.onblur = (e) => mouseleave_or_blur_handle(e, input, min)
-    shadow.append(input)
+    input.value = min
+    input.onchange = (e) => handleChange(e)
+
+    const bar = document.createElement('div')
+    bar.classList.add('bar')
+
+    const ruler = document.createElement('div')
+    ruler.classList.add('ruler')
+
+    const fill = document.createElement('div')
+    fill.classList.add('fill')
+
+    bar.append(ruler, fill)
+    shadow.append(input, bar)
     shadow.adoptedStyleSheets = [sheet]
+    document.body.append(el)
     return el
+
+    function handleChange(e) {
+        const val = Number(e.target.value)
+        console.log(val)
+        fill.style.width = `${(val / max)*100}%`
+    }
 }
 
 
 function get_theme() {
     return `
-        input {
-            height: 100%;
-            width: 200px;
-            padding: 20px;
-            font-size: 22px;
-            outline: none;
-            border: none;
-            color: #595959;
-            background: #dde1e7;
-            border-radius: 25px;
-            box-shadow: inset 2px 2px 5px #babecc,
-                        inset -5px -5px 10px #ffffff73;
+        *, *:before, *:after { box-sizing: inherit; }
+        :host {
+            --white: hsla(0, 0%, 100%, 1);
+            --transparent: hsla(0, 0%, 0%, 0);
+            --grey: hsla(0, 0%, 90%, 1);
+            --blue: hsla(207, 88%, 66%, 1);
+            box-sizing: border-box;
+            position: relative;
+            width: 100%;
+            height: 16px;
         }
-        input:focus {
-            outline: 2px solid #b8b8b8;
+        
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            -webkit-appearance: none;
+            margin: 0;
+            outline: none;
+            z-index: 2;
+            background-color: var(--transparent);
+        }
+        .bar {
+            position: absolute;
+            top: 3px;
+            left: 0;
+            z-index: 0;
+            height: 10px;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--grey);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .ruler {
+            position: absolute;
+            height: 6px;
+            width: 100%;
+            trasform: scale(-1, 1);
+            background-size: 20px 8px;
+            background-image: repeating-linear-gradient(to right,
+                var(--grey) 0px,
+                var(--grey) 17px,
+                var(--white) 17px,
+                var(--white) 20px
+            )
+        }
+        .fill {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background-color: var(--blue);
+        }
+        input:focus + .bar .fill,
+        input:focus-within + .bar .fill,
+        input:active  + .bar .fill {
+            background-color: var(--blue);
+        }
+        input::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 1px solid var(--grey);
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, .4);
+            transition: background-color .3s, box-shadow .15s linear;
+        }
+        input::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 0 10px rgba(94, 170, 245, .8);
         }
     `
 }
 
-function keyupHandle(e, input, min, max) {
-    let val = Number(e.target.value)
-    let valLen = val.toString().length
-    let minLen = min.toString().length
-    if (valLen == minLen && val < min) input.value = ''
-    else if (val > max) input.value = max
-}
-
-function mouseleave_or_blur_handle(e, input, min) {
-    let val = Number(e.target.value)
-    if (val < min) input.value = ''
-}
-
 },{}],2:[function(require,module,exports){
-const inputInteger = require('..')
+const rangeSlider = require('..')
 
-const age = inputInteger(1, 140)
-const birthYear = inputInteger(1872, 2022)
+const range = rangeSlider(0, 10)
 
-const section = document.createElement('div')
-section.innerHTML = `
-    <h3>Enter age:</h3>
-    <x></x>
-    <h3>Enter birth year:</h3>
-    <y></y>
+const main = document.createElement('div')
+main.classList.add('demo')
+
+const style = document.createElement('style')
+style.textContent = `
+    .demo {
+    }
 `
-section.querySelector('x').replaceWith(age)
-section.querySelector('y').replaceWith(birthYear)
-
-document.body.append(section)
+main.append(range)
+document.body.append(main, style)
 
 },{"..":1}]},{},[2]);
