@@ -1,5 +1,5 @@
 {
-  "name": "shadow-neumorphic-input",
+  "name": "shadow-range-slider",
   "version": "0.0.2",
   "description": "ui component",
   "main": "index.js",
@@ -14,8 +14,7 @@
   },
   "keywords": [
     "shadow-dom",
-    "neumorphic",
-    "vanilla-js"
+    "neumorphic"
   ],
   "author": "preyash",
   "license": "MIT",
